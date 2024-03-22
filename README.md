@@ -1,2 +1,4 @@
 # zer0-nvim
-neovim config
+
+This is a neovim config learning
+Now, just only installer
