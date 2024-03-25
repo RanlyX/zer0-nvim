@@ -80,7 +80,7 @@ main() {
         case $OPT in
             i) installOneshot $OPTARG;;
             r) removeOneshot $OPTARG;;
-	    h) showHelp;;
+	        h) showHelp;;
             ?) showHelp
         esac
     done
