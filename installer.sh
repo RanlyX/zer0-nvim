@@ -66,21 +66,45 @@ removeOneshot() {
     fi	
 }
 
+# --- config ------
+
+installConfig() {
+    cp -r "config/nvim" "$HOME/.config/"
+}
+
+removeConfig() {
+    rm -rf "$HOME/.config/nvim"
+}
+
+setupConfig() {
+    local action=$1
+    if [ $action == "install" ]; then
+        echo "Install config"
+        installConfig
+    elif [ $action == "remove" ]; then
+        echo "Remove config"
+        removeConfig
+    else
+        echo "Unknow action"
+    fi
+}
 # --- help --------
 
 showHelp() {
-    echo "Usage: installer.sh [-h] -i|-r zsh|bash "
-    echo "    -i zsh|bash    Install Neovim"
-    echo "    -r zsh|bash    Remove Neovim"
-    echo "    -h             Show usage"
+    echo "Usage: installer.sh [-h] -i|-r zsh|bash -c install|remove"
+    echo "    -i zsh|bash          Install Neovim"
+    echo "    -r zsh|bash          Remove Neovim"
+    echo "    -c install|remove    Remove Neovim"
+    echo "    -h                   Show usage"
 }
 
 main() {
-    while getopts 'i:r:h' OPT; do
+    while getopts 'i:r:c:h' OPT; do
         case $OPT in
             i) installOneshot $OPTARG;;
             r) removeOneshot $OPTARG;;
-	        h) showHelp;;
+            c) setupConfig $OPTARG;;
+	    h) showHelp;;
             ?) showHelp
         esac
     done
